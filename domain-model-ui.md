@@ -238,7 +238,7 @@ Now let's say you want to put the all stuff together:
 		...
 	}
 
-I intentionally did not use any specific UI MVC framework to build up the examples. My goal was to demostrate a concepts and how the pieces, how the pieces of concern are separated so each of them was responsible only for its own functionality.
+I intentionally did not use any specific UI MVC framework to build up the examples. My goal was to demostrate a concepts and how the pieces of concern are separated so each of them was responsible only for its own functionality.
 
 Besides the both *FileDomain* and *ViewModel* in the examples can be easily covered with unit-tests. And I guess some controller functionality can be covered too.
 
@@ -246,4 +246,6 @@ Another benefit of the granularity is the ability to put mocked view implementat
 
 ### Summary ###
 
-Domain model and View model are different because they are based on different 
+View Model can be considered as a subset of Domain Model that encloses UI specific whereas File Domain model addresses just only persistences and core behavior of an object from your subject area.
+
+From *FileDomain* perspective the class is agnostic in which way it will be eventually used. So I would not recommend to unify logic of Domain Model and View Model in the same class. Instead you can use aggregation.
