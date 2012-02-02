@@ -52,16 +52,16 @@ This piece of code is authoriative for any rules about file names. And we have t
 			return file.getName();
 		}
 
-		public void setName(@NotNull String newName) {
+		public void setName(@NotNull String newName) throws BadFileNameException {
 			assert newName != null;
 
 			if (isNameCorrect(newName))
-				throw new IllegalArgumentException("incorrect name of file: " + newName);
+				throw new BadFileNameException(newName);
 
 			file.setName(newName);
 		}
 			
-    ....
+    	...
 	}
 
 What's the File? In this example File is another piece of functionality that you want to separate from logic. File represents operations on your file-system. That can be OS backed filesystem or you can maintain your own one that you store in a DB. In the model you're separated from it through the interface:
@@ -238,8 +238,12 @@ Now let's say you want to put the all stuff together:
 		...
 	}
 
-I intentionally did not use any specific UI MVC framework to build up the set of examples. My goal was to demostrate a concepts and how the pieces, how the pieces of concern a separated so each of them was responsible only for its own functionality.
+I intentionally did not use any specific UI MVC framework to build up the examples. My goal was to demostrate a concepts and how the pieces, how the pieces of concern are separated so each of them was responsible only for its own functionality.
 
-Besides all models FileDomain and View model in the example can be easily covered with unit-tests. I guess some controller functionality can be covered too.
+Besides the both *FileDomain* and *ViewModel* in the examples can be easily covered with unit-tests. And I guess some controller functionality can be covered too.
 
-Another benefit of the granularity is the ability to put mocked view implementation and run subset of integration tests.
+Another benefit of the granularity is the ability to put mocked view implementation and run subset of integration tests for UI.
+
+### Summary ###
+
+Domain model and View model are different because they are based on different 
