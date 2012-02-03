@@ -18,7 +18,7 @@ Let's consider what is domain model here. As domain model is about rules, calcul
 		
 		public boolean isCharAllowed(char c) {
 			boolean foundInReserved = RESERVED_CHARS.indexOf(c) > -1;
-			return foundInReserved;
+			return !foundInReserved;
 		}
 
 		public boolean isLengthAllowed(int len) {
@@ -131,12 +131,11 @@ Suppose user presses a key and that is the event that will be eventually handled
 
 	public class ViewDomain {
 		...
-
 		public bool isInEditMode() {
 			return isInEditMode;
 		}
 
-		public void startEdit() {
+		public void startEditing() {
 			isInEditMode = true;
 			temporaryFileName.setLength(0);
 			temporaryFileName.append(fileDomain.getName());
@@ -161,14 +160,14 @@ Suppose user presses a key and that is the event that will be eventually handled
 		public void acceptEdit() {
 			try {
 				fileDomain.setName(temporaryFileName.toString());
-				stopEditMode();
+				stopEditing();
 			} catch (BadFileNameException e) {
 				// still we can receive this if model rules are changed
 				fireBadFileNameEvent(e)
 			}
 		}
 
-		public void stopEditMode() {
+		public void stopEditing() {
 			isInEditMode = false;
 			temporaryFileName.setLength(0);
 
